@@ -17,6 +17,14 @@
 }
 .navbar-board {
   flex: 1;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 20px;
+    height: 14px;
+    display: none;
+  }
 }
 .navbar-add-ticket {
   display: flex;
@@ -45,6 +53,9 @@
   .navbar-board {
     h2 {
       padding: 0 10px;
+    }
+    img {
+      display: block;
     }
   }
 }

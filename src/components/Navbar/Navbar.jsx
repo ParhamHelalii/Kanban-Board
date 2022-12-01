@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import "./Navbar.scss";
 import IconLogo from "../../assets/icon/IconLogo";
 import { BoardContext } from "../../context/BoardContext";
+import UpLogo from "../../assets/icon-chevron-up.svg";
+import DownLogo from "../../assets/icon-chevron-down.svg";
 
-const Navbar = ({ toggleDropDown }) => {
+const Navbar = ({ setShowAddTicket, setIsOpen, isOpen }) => {
   const { currentProject } = useContext(BoardContext);
 
   return (
@@ -14,11 +16,18 @@ const Navbar = ({ toggleDropDown }) => {
       </div>
       <div className="navbar-board">
         <h2>{currentProject.title}</h2>
+        <img
+          src={isOpen ? DownLogo : UpLogo}
+          alt=""
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+          }}
+        />
       </div>
       <div className="navbar-add-ticket">
         <button
           onClick={() => {
-            toggleDropDown((prev) => !prev);
+            setShowAddTicket((prev) => !prev);
           }}
         >
           Add New Task

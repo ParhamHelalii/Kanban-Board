@@ -1,16 +1,23 @@
 import React, { createContext, useState } from "react";
 import { projectsData } from "./data";
 import { v4 as uuidv4 } from "uuid";
+import { useLocalStorage } from "../components/hooks/useLocalStorage";
 
 export const BoardContext = createContext();
 
 const BoardContextProvider = ({ children }) => {
-  const [projects, setProjects] = useState(projectsData);
+  const [projects, setProjects] = useLocalStorage("projects", projectsData);
   const [projectIndex, setProjectIndex] = useState(0);
+
   const currentProject = projects[projectIndex];
 
   const changeBoard = (index) => {
     setProjectIndex(index);
+  };
+
+  const changeCurrentBoard = (board) => {
+    projects[projectIndex].board = board;
+    setProjects([...projects]);
   };
 
   const addNewProject = (title) => {
@@ -22,15 +29,15 @@ const BoardContextProvider = ({ children }) => {
       board: [
         {
           name: "Todo",
-          tickets: [],
+          items: [],
         },
         {
           name: "Doing",
-          tickets: [],
+          items: [],
         },
         {
           name: "Done",
-          tickets: [],
+          items: [],
         },
       ],
     };
@@ -39,7 +46,7 @@ const BoardContextProvider = ({ children }) => {
   };
 
   const createTicket = (ticket) => {
-    projects[projectIndex].board[0].tickets.push(ticket);
+    projects[projectIndex].board.stage1.items.push(ticket);
     setProjects([...projects]);
   };
 
@@ -49,6 +56,7 @@ const BoardContextProvider = ({ children }) => {
     currentProject,
     changeBoard,
     addNewProject,
+    changeCurrentBoard,
   };
 
   return (

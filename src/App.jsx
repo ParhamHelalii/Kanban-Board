@@ -13,7 +13,11 @@ function App() {
   const [showAddTicket, setShowAddTicket] = useState(false);
   return (
     <div className="App">
-      <Navbar toggleDropDown={setShowAddTicket} />
+      <Navbar
+        setShowAddTicket={setShowAddTicket}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+      />
       <main>
         <Sidebar />
         <Board />
